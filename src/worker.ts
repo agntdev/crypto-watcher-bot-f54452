@@ -14,6 +14,8 @@ import { webhookCallback, Composer, type Bot } from "grammy";
 import { buildBot, type Ctx } from "./bot.js";
 import { handlers } from "./handlers.generated.js";
 import { createDurableSessionStorage, type WorkerEnv } from "./toolkit/session/durable.js";
+import { configureWorkerStore } from "./crypto.js";
+import { runDailyTasks } from "./crypto.js";
 
 export { ChatDO } from "./toolkit/session/durable.js";
 
@@ -30,6 +32,7 @@ let botPromise: Promise<Bot<Ctx>> | null = null;
 function getBot(env: WorkerEnv): Promise<Bot<Ctx>> {
   if (!botPromise) {
     botPromise = (async () => {
+      configureWorkerStore(env.DB);
       // Expose the runtime env to handlers (Workers-only; the harness never sets
       // it) BEFORE they run — a handler reaches bindings + helpers through it
       // (remindAt(ctx.env, …), ctx.env.DB). buildBot installs `handlers` in array
@@ -80,5 +83,13 @@ export default {
     }
 
     return new Response("not found", { status: 404 });
+  },
+
+  // Cloudflare invokes this when the deployment's cron trigger fires. The
+  // processor itself checks each user's configured summary time and suppresses
+  // duplicates, so a frequent trigger is safe.
+  async scheduled(_event: unknown, env: WorkerEnv): Promise<void> {
+    const bot = await getBot(env);
+    await runDailyTasks(bot);
   },
 };

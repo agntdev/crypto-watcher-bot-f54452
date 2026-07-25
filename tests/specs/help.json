@@ -1,27 +1,4 @@
 [
-  {
-    "name": "/help explains the bot in plain language",
-    "steps": [
-      {
-        "send": { "text": "/help" },
-        "expect": [
-          {
-            "method": "sendMessage",
-            "payload": {
-              "text": "ℹ️ Tap /start to open the menu, then pick what you want from the buttons.\n\nEverything in this bot is reachable by tapping — you don't need to remember any commands."
-            }
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "the Help menu button shows the same help text",
-    "steps": [
-      {
-        "send": { "callback": "menu:help" },
-        "expect": [{ "method": "editMessageText" }]
-      }
-    ]
-  }
+  {"name":"/help explains Crypto Watcher","steps":[{"send":{"text":"/help"},"expect":[{"method":"sendMessage","payload":{"text":"Use Add coin to set a price or movement alert.\n\nUse /price BTC, /price ETH, or /price TON for a live USD price.\n\nTap /start to manage your watchlist and notification settings."}}]}]},
+  {"name":"Help menu button works","steps":[{"send":{"callback":"menu:help"},"expect":[{"method":"editMessageText"}]}]}
 ]

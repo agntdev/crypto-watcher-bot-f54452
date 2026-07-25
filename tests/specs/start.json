@@ -1,16 +1,1 @@
-[
-  {
-    "name": "/start replies with the welcome + main menu",
-    "steps": [
-      {
-        "send": { "text": "/start" },
-        "expect": [
-          {
-            "method": "sendMessage",
-            "payload": { "text": "👋 Welcome! Tap a button below to get started." }
-          }
-        ]
-      }
-    ]
-  }
-]
+[{"name":"/start opens the Crypto Watcher menu","steps":[{"send":{"text":"/start"},"expect":[{"method":"sendMessage","payload":{"text":"Watch crypto prices and set private alerts."}}]}]}]
