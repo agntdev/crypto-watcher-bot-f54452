@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Manage Alerts",
+    "steps": [
+      {
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "View, edit, or remove existing watchlist entries"
+            }
+          }
+        ],
+        "send": {
+          "callback": "watchlist:manage"
+        }
+      }
+    ]
+  }
+]
