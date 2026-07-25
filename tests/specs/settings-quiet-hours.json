@@ -1,20 +1,7 @@
 [
-  {
-    "name": "Set Quiet Hours",
-    "steps": [
-      {
-        "expect": [
-          {
-            "method": "sendMessage",
-            "payload": {
-              "text": "Configure time window when alerts are suppressed"
-            }
-          }
-        ],
-        "send": {
-          "callback": "settings:quiet_hours"
-        }
-      }
-    ]
-  }
+  {"name":"Quiet Hours opens settings","steps":[{"send":{"callback":"settings:quiet_hours"},"expect":[{"method":"sendMessage","payload":{"text":"Quiet hours: Not set.\nAlerts stay silent during this window."}}]}]},
+  {"name":"Quiet Hours validates a window","steps":[
+    {"send":{"callback":"qh:set"},"expect":[{"method":"sendMessage","payload":{"text":"Send your quiet window in UTC, like 22:00-07:00."}}]},
+    {"send":{"text":"25:00-07:00"},"expect":[{"method":"sendMessage","payload":{"text":"Use two different UTC times, like 22:00-07:00."}}]}
+  ]}
 ]

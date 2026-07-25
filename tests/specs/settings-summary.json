@@ -1,20 +1,7 @@
 [
-  {
-    "name": "Morning Summary",
-    "steps": [
-      {
-        "expect": [
-          {
-            "method": "sendMessage",
-            "payload": {
-              "text": "Enable/disable and configure daily price summary"
-            }
-          }
-        ],
-        "send": {
-          "callback": "settings:summary"
-        }
-      }
-    ]
-  }
+  {"name":"Morning Summary opens settings","steps":[{"send":{"callback":"settings:summary"},"expect":[{"method":"sendMessage","payload":{"text":"Morning summary is off."}}]}]},
+  {"name":"Morning Summary validates its time","steps":[
+    {"send":{"callback":"ms:time"},"expect":[{"method":"sendMessage","payload":{"text":"Send the daily summary time in UTC, like 09:00."}}]},
+    {"send":{"text":"25:00"},"expect":[{"method":"sendMessage","payload":{"text":"Use a UTC time like 09:00."}}]}
+  ]}
 ]

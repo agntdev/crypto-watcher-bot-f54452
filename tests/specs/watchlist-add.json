@@ -1,20 +1,9 @@
 [
-  {
-    "name": "Add Coin",
-    "steps": [
-      {
-        "expect": [
-          {
-            "method": "sendMessage",
-            "payload": {
-              "text": "Add a new coin to your watchlist with alert rules"
-            }
-          }
-        ],
-        "send": {
-          "callback": "watchlist:add"
-        }
-      }
-    ]
-  }
+  {"name":"Add Coin opens the picker","steps":[{"send":{"callback":"watchlist:add"},"expect":[{"method":"sendMessage","payload":{"text":"Choose a coin to watch."}}]}]},
+  {"name":"Add Coin configures a threshold","steps":[
+    {"send":{"callback":"watchlist:add"},"expect":[{"method":"sendMessage","payload":{"text":"Choose a coin to watch."}}]},
+    {"send":{"callback":"wa:coin:BTC"},"expect":[{"method":"sendMessage","payload":{"text":"Track BTC. Choose the alert rule."}}]},
+    {"send":{"callback":"wa:kind:threshold"},"expect":[{"method":"sendMessage","payload":{"text":"Send the USD price that should alert you."}}]},
+    {"send":{"text":"100000"},"expect":[{"method":"sendMessage","payload":{"text":"Alert BTC when it reaches $100,000."}}]}
+  ]}
 ]
