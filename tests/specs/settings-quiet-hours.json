@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Set Quiet Hours",
+    "steps": [
+      {
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Configure time window when alerts are suppressed"
+            }
+          }
+        ],
+        "send": {
+          "callback": "settings:quiet_hours"
+        }
+      }
+    ]
+  }
+]
